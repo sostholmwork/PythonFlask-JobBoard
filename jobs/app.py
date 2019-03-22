@@ -1,4 +1,4 @@
-from flask import Flask, render_template,g
+from flask import Flask, render_template, g
 import sqlite3
 
 app = Flask(__name__)
@@ -33,4 +33,7 @@ def close_connection(exception):
 @app.route("/")
 @app.route("/jobs")
 def jobs():
-    return render_template('index.html',)
+    query = 'SELECT job.id, job.title, job.description, job.salary, employer.id as employer_id, employer.name as employer_name'
+    query += ' FROM job join employer on employer.id = job.employer_id'
+    jobs = execute_sql(query)
+    return render_template('index.html', jobs=jobs)
