@@ -7,7 +7,7 @@ PATH = 'db/jobs.sqlite'
 
 def open_connection():
     connection = getattr(g, '_connection', None)
-    if(connection = None):
+    if connection == None:
         connection = g._connection = sqlite3.connect(PATH)
 
     connection.row_factory = sqlite3.Row
